@@ -1,0 +1,140 @@
+
+<!-- templates/luku/dashboard.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <!-- First Row: Four Statistic Tiles -->
+    <div class="col-12 col-md-3 mb-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">Average Days per Token</h5>
+                <h2 class="display-4">{{ avg_days }}</h2>
+                <p class="card-text">days</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-3 mb-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Average Amount</h5>
+                <h2 class="display-4">{{ avg_amount }}</h2>
+                <p class="card-text">TSh</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-3 mb-4">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Tokens Purchased</h5>
+                <h2 class="display-4">{{ total_purchase }}</h2>
+                <p class="card-text">tokens</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-3 mb-4">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Energy Purchased</h5>
+                <h2 class="display-4">{{ total_units }}</h2>
+                <p class="card-text">kWh</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Second Row: Meter Info & Quick Actions -->
+<div class="row">
+    <!-- Meter Information Card -->
+    <div class="col-12 col-lg-5 mb-4">
+        <div class="card bg-light h-100">
+            <div class="card-body">
+                <h5 class="card-title">Meter Information</h5>
+                {% if meter_info %}
+                    <p><strong>Meter Number:</strong> {{ meter_info.meter_number }}</p>
+                    <p><strong>Location:</strong> {{ meter_info.location }}</p>
+                {% else %}
+                    <p class="text-muted">No meter info available.</p>
+                {% endif %}
+                <a href="{% url 'add_meter' %}" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-pen"></i> Add/Update Meter Info
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions Card -->
+    <div class="col-12 col-lg-7 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title text-center">Quick Actions</h5>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <a href="{% url 'energy_purchased' %}" class="btn btn-primary w-100">
+                            <i class="fas fa-plus"></i> Add Purchase
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" class="btn btn-secondary w-100">
+                            <i class="fas fa-cart-arrow-down"></i> Shop Electrical Components
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="{% url 'view_analytics'%}" class="btn btn-secondary w-100">
+                            <i class="fa fa-bar-chart"></i> View Trends
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" class="btn btn-secondary w-100">
+                            <i class="fas fa-money-bill"></i> Buy Luku
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Recent Purchase -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Recent Purchase</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Units</th>
+                        <th>Expected Days</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for token in recent_purchase %}
+                    <tr>
+                        <td>{{ token.purchase_date|date:"d/m/Y" }}</td>
+                        <td>{{ token.amount }} Tsh</td>
+                        <td>{{ token.units }} </td>
+                        <td>{{ token.expected_days|default:"--" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No purchases added yet</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

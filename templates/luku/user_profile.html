@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg rounded-3">
+                <div class="card-header bg-primary text-white text-center">
+                    <h5 class="mb-0">User Profile</h5>
+                </div>
+                <div class="card-body text-center">
+                    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                    <p><strong>Username:</strong> {{ user.username }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+                    <p><strong>Email Verified:</strong> {% if user.email_verified %} ✅ Yes {% else %} ❌ No {% endif %}</p>
+                    <p><strong>Phone Verified:</strong> {% if user.phone_verified %} ✅ Yes {% else %} ❌ No {% endif %}</p>
+                    <a href="#" class="btn btn-primary w-100 mt-3">Update Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

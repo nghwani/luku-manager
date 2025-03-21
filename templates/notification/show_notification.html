@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block content%}
+
+<h2>Luku Notifications</h2>
+
+<ul id="notifications-list">
+    {% for notification in notifications %}
+        <li>
+            <strong>{{ notification.type }}</strong>: {{ notification.message }} <br>
+            {% if notification.energy %}
+                <small>Related to: {{ notification.type }}</small><br>
+            {% endif %}
+            <small>{{ notification.created_at }}</small>
+        </li>
+    {% empty %}
+        <p>No notifications available.</p>
+    {% endfor %}
+</ul>
+<!-- <script src="{% static 'js/notification.js' %}"></script> -->
+{%endblock%}

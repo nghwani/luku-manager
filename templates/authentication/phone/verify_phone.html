@@ -1,0 +1,24 @@
+<!-- templates/luku/verify_phone.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Verify Phone Number</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="verification_code" class="form-label">Enter Verification Code</label>
+                        <input type="text" class="form-control" id="verification_code" 
+                               name="verification_code" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Verify</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
